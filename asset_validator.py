@@ -6,7 +6,7 @@ import os
 class MyWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Asset Validator")
+        self.setWindowTitle("Data Naming Convention Validator")
         self.setFixedSize(375, 400)
 
         layout = QVBoxLayout()
@@ -16,11 +16,11 @@ class MyWindow(QWidget):
         layout.addWidget(self.label)
 
         self.prefix_input = QLineEdit()
-        self.prefix_input.setPlaceholderText("Prefixes: SM_, SK_, T_")
+        self.prefix_input.setPlaceholderText("Prefixes: train_, test_, val_, SM_")
         layout.addWidget(self.prefix_input)
 
         self.extension_input = QLineEdit()
-        self.extension_input.setPlaceholderText("Extensions: .blend, .fbx, .png")
+        self.extension_input.setPlaceholderText("Extensions: .png, .jpg, .fbx")
         layout.addWidget(self.extension_input)
 
         self.label2 = QLabel("\nYour files:")
@@ -146,7 +146,7 @@ class MyWindow(QWidget):
                 self.label.setText(f"Error: {e}\n")
                 print(f"[ERROR] {e}")
         else:
-            print(f'[INFO] Batch Rename Report has been cancelled.')
+            print(f'[INFO] Asset Validation Report has been cancelled.')
 
 
 app = QApplication(sys.argv)
