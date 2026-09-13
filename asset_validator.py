@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QApplication, QWidget, QFileDialog, QLineEdit, QLabel, QListWidget, QListWidgetItem, QPushButton, QVBoxLayout
 from PySide6.QtGui import QColor
+from core import is_valid_asset_name as validate_name
 import sys
 import os
 
@@ -71,8 +72,8 @@ class MyWindow(QWidget):
         self.invalid_counter = 0
 
     def is_valid_asset_name(self, file_name):
-        prefix_text = self.prefix_input.text()
-        extension_text = self.extension_input.text()
+        prefix_text = self.prefix_input.text().strip()
+        extension_text = self.extension_input.text().strip()
 
         if not prefix_text or not extension_text:
             return False
@@ -80,11 +81,7 @@ class MyWindow(QWidget):
         prefixes = tuple(p.strip() for p in prefix_text.split(","))
         extensions = tuple(e.strip() for e in extension_text.split(","))
 
-        if not file_name.startswith(prefixes):
-            return False
-        if not file_name.endswith(extensions):
-            return False
-        return True
+        return validate_name(file_name, prefixes, extensions)
 
     def run_validator(self):
         folder = QFileDialog.getExistingDirectory(self, "Select Asset Folder")
